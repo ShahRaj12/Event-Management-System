@@ -1,0 +1,155 @@
+Setup Instructions
+
+1. Clone the Repository
+
+git clone <repository-url>
+cd event-booking-system
+
+2. Install Dependencies
+
+npm install
+
+3. Create a .env file
+
+Create a .env file in the root directory and add the following:
+
+PORT=5000
+JWT_SECRET=rajshah
+MONGO_URI=mongodb+srv://rs7875483:3332Mongo@cluster0.0wuv0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
+4. Start the Server
+
+Development Mode
+
+npm run dev
+
+API Endpoints
+
+Authentication Routes
+
+1. Register a User
+
+POST /api/auth/register
+
+Request Body:
+
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "password": "password123"
+}
+
+2. Login
+
+POST /api/auth/login
+
+Request Body:
+
+{
+  "email": "johndoe@example.com",
+  "password": "password123"
+}
+
+Response:
+
+{
+  "token": "your_jwt_token"
+}
+
+Event Routes
+
+3. Create an Event (Protected)
+
+POST /api/events
+Authorization: Bearer {token}
+
+Request Body:
+
+{
+  "name": "Tech Conference",
+  "date": "2025-06-15",
+  "capacity": 100
+}
+
+4. Get All Events
+
+GET /api/events
+
+5. Update an Event (Protected)
+
+PUT /api/events/{eventId}
+Authorization: Bearer {token}
+
+Request Body:
+
+{
+  "name": "Updated Event Name",
+  "date": "2025-07-10",
+  "capacity": 150
+}
+
+6. Delete an Event (Protected)
+
+DELETE /api/events/{eventId}
+Authorization: Bearer {token}
+
+Importing Postman Collection
+
+Open Postman.
+
+Go to File > Import.
+
+Copy the following Postman Collection JSON, save it as event-booking.postman_collection.json, and import it into Postman.
+
+{
+    "info": {
+        "_postman_id": "12345-abcde-67890",
+        "name": "Event Booking System API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "User Registration",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": { "raw": "http://localhost:5000/api/auth/register", "path": ["api", "auth", "register"] },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"name\": \"John Doe\", \"email\": \"johndoe@example.com\", \"password\": \"password123\"}"
+                }
+            }
+        },
+        {
+            "name": "User Login",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": { "raw": "http://localhost:5000/api/auth/login", "path": ["api", "auth", "login"] },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"email\": \"johndoe@example.com\", \"password\": \"password123\"}"
+                }
+            }
+        },
+        {
+            "name": "Create Event",
+            "request": {
+                "method": "POST",
+                "header": [
+                    { "key": "Content-Type", "value": "application/json" },
+                    { "key": "Authorization", "value": "Bearer {{token}}" }
+                ],
+                "url": { "raw": "http://localhost:5000/api/events", "path": ["api", "events"] },
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\"name\": \"Tech Conference\", \"date\": \"2025-06-15\", \"capacity\": 100}"
+                }
+            }
+        }
+    ]
+}
